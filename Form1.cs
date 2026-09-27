@@ -20,6 +20,7 @@ namespace RestaurantTableReservation
             dataGridViewTables.Columns.Add("colCapacity", "Capacity");
             dataGridViewTables.Columns.Add("colSection", "Section");
             dataGridViewTables.Columns.Add("colTableStatus", "Status");
+            dataGridViewTables.Columns.Add("colOccupiedSince", "Occupied Since");
             // Data only ever gets added through the fields + buttons above, so turn off the
             // grid's own blank "type a new row here" row - otherwise code that loops over
             // Rows can hit that empty row and blow up on its null cell values.
@@ -54,6 +55,107 @@ namespace RestaurantTableReservation
             buttonDeleteWaitlist.Click += buttonDeleteWaitlist_Click;
             buttonSeatParty.Click += buttonSeatParty_Click;
             dataGridViewWaitlist.SelectionChanged += dataGridViewWaitlist_SelectionChanged;
+
+            buttonMarkTableFree.Click += buttonMarkTableFree_Click;
+        }
+
+        // Real observed "how long did a table actually stay occupied" times, in minutes.
+        // Starts with a few made-up baseline numbers so the wait estimate on the Waitlist
+        // tab is not just zero before any table has actually been freed yet.
+        private List<double> historicalTurnoverMinutes = new List<double> { 82, 95, 70, 88 };
+
+        private void buttonMarkTableFree_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewTables.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Select a table in the grid first.");
+                return;
+            }
+
+            DataGridViewRow row = dataGridViewTables.SelectedRows[0];
+
+            if (row.Cells["colTableStatus"].Value.ToString() != "Occupied")
+            {
+                MessageBox.Show("That table is not occupied.");
+                return;
+            }
+
+            DateTime occupiedSince = Convert.ToDateTime(row.Cells["colOccupiedSince"].Value);
+            double minutesOccupied = (DateTime.Now - occupiedSince).TotalMinutes;
+            historicalTurnoverMinutes.Add(minutesOccupied);
+
+            row.Cells["colTableStatus"].Value = "Free";
+            row.Cells["colOccupiedSince"].Value = "";
+
+            MessageBox.Show("Table marked free. It was occupied for about " + Math.Round(minutesOccupied) + " minutes.");
+
+            int tableNumber = Convert.ToInt32(row.Cells["colTableNumber"].Value);
+            int tableCapacity = Convert.ToInt32(row.Cells["colCapacity"].Value);
+            DataGridViewRow matchedRow = FindBestWaitlistMatch(tableCapacity);
+
+            if (matchedRow != null)
+            {
+                string guestName = matchedRow.Cells["colWaitGuestName"].Value.ToString();
+                int partySize = Convert.ToInt32(matchedRow.Cells["colWaitPartySize"].Value);
+
+                DialogResult offer = MessageBox.Show(
+                    guestName + " (party of " + partySize + ") from the waitlist looks like the best match " +
+                    "for this table. Seat them now?", "Waitlist Match Found", MessageBoxButtons.YesNo);
+
+                if (offer == DialogResult.Yes)
+                {
+                    WaitlistEntry entry = new WaitlistEntry(guestName, partySize);
+                    bool seated = SeatParty(entry, tableNumber);
+                    if (seated)
+                    {
+                        matchedRow.Cells["colWaitStatus"].Value = "Seated";
+                    }
+                }
+            }
+        }
+
+        // The assignment's "custom algorithm" requirement: hand-written priority matching
+        // instead of Queue<T> or a LINQ OrderBy. Every waiting party that fits the freed
+        // table gets a score - a good size fit matters a lot more than how long they have
+        // waited, so a party of 2 does not jump ahead of a perfectly-fitting party of 6 just
+        // because they arrived a bit earlier - and we just keep track of the best one seen
+        // so far as we loop through.
+        private DataGridViewRow FindBestWaitlistMatch(int tableCapacity)
+        {
+            DataGridViewRow bestRow = null;
+            double bestScore = -1;
+
+            foreach (DataGridViewRow row in dataGridViewWaitlist.Rows)
+            {
+                string status = row.Cells["colWaitStatus"].Value.ToString();
+                if (status != "Waiting")
+                {
+                    continue;
+                }
+
+                int partySize = Convert.ToInt32(row.Cells["colWaitPartySize"].Value);
+                if (partySize > tableCapacity)
+                {
+                    continue;
+                }
+
+                int seatsWasted = tableCapacity - partySize;
+                double fitScore = 1.0 / (1.0 + seatsWasted);
+
+                DateTime arrivalTime = Convert.ToDateTime(row.Cells["colWaitArrivalTime"].Value);
+                double minutesWaited = (DateTime.Now - arrivalTime).TotalMinutes;
+                double waitScore = minutesWaited / 60.0;
+
+                double totalScore = (fitScore * 10) + waitScore;
+
+                if (totalScore > bestScore)
+                {
+                    bestScore = totalScore;
+                    bestRow = row;
+                }
+            }
+
+            return bestRow;
         }
 
         // Shared by both Seat Party buttons below. It does not care whether "party" is a
@@ -91,6 +193,7 @@ namespace RestaurantTableReservation
             }
 
             tableRow.Cells["colTableStatus"].Value = "Occupied";
+            tableRow.Cells["colOccupiedSince"].Value = DateTime.Now;
             party.MarkSeated();
 
             MessageBox.Show(party.GuestName + " (party of " + party.PartySize + ") has been seated at table " + tableNumber + ".");
@@ -224,9 +327,15 @@ namespace RestaurantTableReservation
                 return;
             }
 
-            // We don't have any real turnover history yet (that will come once tables can be
-            // marked free again), so for now just assume a table takes about 90 minutes and
-            // guess the wait from how many similar-sized parties are already ahead in line.
+            // Work out the real average turnover time from tables that have actually been
+            // marked free so far, instead of just assuming a fixed number of minutes.
+            double totalTurnover = 0;
+            foreach (double minutes in historicalTurnoverMinutes)
+            {
+                totalTurnover += minutes;
+            }
+            double averageTurnover = totalTurnover / historicalTurnoverMinutes.Count;
+
             int partiesAhead = 0;
             foreach (DataGridViewRow row in dataGridViewWaitlist.Rows)
             {
@@ -242,11 +351,11 @@ namespace RestaurantTableReservation
             double estimatedWait;
             if (partiesAhead == 0)
             {
-                estimatedWait = averageDiningMinutes * 0.5;
+                estimatedWait = averageTurnover * 0.5;
             }
             else
             {
-                estimatedWait = averageDiningMinutes * partiesAhead;
+                estimatedWait = averageTurnover * partiesAhead;
             }
 
             dataGridViewWaitlist.Rows.Add(textBoxWaitlistGuestName.Text, partySize, DateTime.Now,
@@ -498,7 +607,7 @@ namespace RestaurantTableReservation
                 return;
             }
 
-            dataGridViewTables.Rows.Add(tableNumber, capacity, textBoxSection.Text, "Free");
+            dataGridViewTables.Rows.Add(tableNumber, capacity, textBoxSection.Text, "Free", "");
 
             textBoxTableNumber.Clear();
             textBoxCapacity.Clear();

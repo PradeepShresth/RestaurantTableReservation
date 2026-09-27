@@ -37,6 +37,7 @@ namespace RestaurantTableReservation
         private System.Windows.Forms.Button buttonAddTable;
         private System.Windows.Forms.Button buttonModifyTable;
         private System.Windows.Forms.Button buttonDeleteTable;
+        private System.Windows.Forms.Button buttonMarkTableFree;
         private System.Windows.Forms.DataGridView dataGridViewTables;
 
         private System.Windows.Forms.GroupBox groupBoxReservationDetails;
@@ -88,6 +89,7 @@ namespace RestaurantTableReservation
             this.buttonAddTable = new System.Windows.Forms.Button();
             this.buttonModifyTable = new System.Windows.Forms.Button();
             this.buttonDeleteTable = new System.Windows.Forms.Button();
+            this.buttonMarkTableFree = new System.Windows.Forms.Button();
             this.dataGridViewTables = new System.Windows.Forms.DataGridView();
 
             this.groupBoxReservationDetails = new System.Windows.Forms.GroupBox();
@@ -167,6 +169,7 @@ namespace RestaurantTableReservation
             this.groupBoxTableDetails.Controls.Add(this.buttonAddTable);
             this.groupBoxTableDetails.Controls.Add(this.buttonModifyTable);
             this.groupBoxTableDetails.Controls.Add(this.buttonDeleteTable);
+            this.groupBoxTableDetails.Controls.Add(this.buttonMarkTableFree);
             this.groupBoxTableDetails.Location = new System.Drawing.Point(15, 10);
             this.groupBoxTableDetails.Name = "groupBoxTableDetails";
             this.groupBoxTableDetails.Size = new System.Drawing.Size(820, 150);
@@ -217,6 +220,12 @@ namespace RestaurantTableReservation
             this.buttonDeleteTable.Size = new System.Drawing.Size(120, 32);
             this.buttonDeleteTable.Text = "Delete";
             this.buttonDeleteTable.UseVisualStyleBackColor = true;
+
+            this.buttonMarkTableFree.Location = new System.Drawing.Point(410, 100);
+            this.buttonMarkTableFree.Name = "buttonMarkTableFree";
+            this.buttonMarkTableFree.Size = new System.Drawing.Size(140, 32);
+            this.buttonMarkTableFree.Text = "Mark Table Free";
+            this.buttonMarkTableFree.UseVisualStyleBackColor = true;
 
             //
             // dataGridViewTables
