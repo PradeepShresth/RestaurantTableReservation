@@ -51,6 +51,7 @@ namespace RestaurantTableReservation
         private System.Windows.Forms.Button buttonCreateReservation;
         private System.Windows.Forms.Button buttonModifyReservation;
         private System.Windows.Forms.Button buttonDeleteReservation;
+        private System.Windows.Forms.Button buttonSeatReservation;
         private System.Windows.Forms.DataGridView dataGridViewReservations;
 
         private System.Windows.Forms.GroupBox groupBoxWaitlistDetails;
@@ -58,6 +59,8 @@ namespace RestaurantTableReservation
         private System.Windows.Forms.TextBox textBoxWaitlistGuestName;
         private System.Windows.Forms.Label labelWaitlistPartySize;
         private System.Windows.Forms.TextBox textBoxWaitlistPartySize;
+        private System.Windows.Forms.Label labelWaitlistTableNumber;
+        private System.Windows.Forms.TextBox textBoxWaitlistTableNumber;
         private System.Windows.Forms.Button buttonAddWaitlist;
         private System.Windows.Forms.Button buttonModifyWaitlist;
         private System.Windows.Forms.Button buttonDeleteWaitlist;
@@ -99,6 +102,7 @@ namespace RestaurantTableReservation
             this.buttonCreateReservation = new System.Windows.Forms.Button();
             this.buttonModifyReservation = new System.Windows.Forms.Button();
             this.buttonDeleteReservation = new System.Windows.Forms.Button();
+            this.buttonSeatReservation = new System.Windows.Forms.Button();
             this.dataGridViewReservations = new System.Windows.Forms.DataGridView();
 
             this.groupBoxWaitlistDetails = new System.Windows.Forms.GroupBox();
@@ -106,6 +110,8 @@ namespace RestaurantTableReservation
             this.textBoxWaitlistGuestName = new System.Windows.Forms.TextBox();
             this.labelWaitlistPartySize = new System.Windows.Forms.Label();
             this.textBoxWaitlistPartySize = new System.Windows.Forms.TextBox();
+            this.labelWaitlistTableNumber = new System.Windows.Forms.Label();
+            this.textBoxWaitlistTableNumber = new System.Windows.Forms.TextBox();
             this.buttonAddWaitlist = new System.Windows.Forms.Button();
             this.buttonModifyWaitlist = new System.Windows.Forms.Button();
             this.buttonDeleteWaitlist = new System.Windows.Forms.Button();
@@ -250,6 +256,7 @@ namespace RestaurantTableReservation
             this.groupBoxReservationDetails.Controls.Add(this.buttonCreateReservation);
             this.groupBoxReservationDetails.Controls.Add(this.buttonModifyReservation);
             this.groupBoxReservationDetails.Controls.Add(this.buttonDeleteReservation);
+            this.groupBoxReservationDetails.Controls.Add(this.buttonSeatReservation);
             this.groupBoxReservationDetails.Location = new System.Drawing.Point(15, 10);
             this.groupBoxReservationDetails.Name = "groupBoxReservationDetails";
             this.groupBoxReservationDetails.Size = new System.Drawing.Size(820, 150);
@@ -312,6 +319,12 @@ namespace RestaurantTableReservation
             this.buttonDeleteReservation.Text = "Delete";
             this.buttonDeleteReservation.UseVisualStyleBackColor = true;
 
+            this.buttonSeatReservation.Location = new System.Drawing.Point(440, 100);
+            this.buttonSeatReservation.Name = "buttonSeatReservation";
+            this.buttonSeatReservation.Size = new System.Drawing.Size(120, 32);
+            this.buttonSeatReservation.Text = "Seat Party";
+            this.buttonSeatReservation.UseVisualStyleBackColor = true;
+
             //
             // dataGridViewReservations
             //
@@ -343,6 +356,8 @@ namespace RestaurantTableReservation
             this.groupBoxWaitlistDetails.Controls.Add(this.textBoxWaitlistGuestName);
             this.groupBoxWaitlistDetails.Controls.Add(this.labelWaitlistPartySize);
             this.groupBoxWaitlistDetails.Controls.Add(this.textBoxWaitlistPartySize);
+            this.groupBoxWaitlistDetails.Controls.Add(this.labelWaitlistTableNumber);
+            this.groupBoxWaitlistDetails.Controls.Add(this.textBoxWaitlistTableNumber);
             this.groupBoxWaitlistDetails.Controls.Add(this.buttonAddWaitlist);
             this.groupBoxWaitlistDetails.Controls.Add(this.buttonModifyWaitlist);
             this.groupBoxWaitlistDetails.Controls.Add(this.buttonDeleteWaitlist);
@@ -370,6 +385,15 @@ namespace RestaurantTableReservation
             this.textBoxWaitlistPartySize.Location = new System.Drawing.Point(240, 55);
             this.textBoxWaitlistPartySize.Name = "textBoxWaitlistPartySize";
             this.textBoxWaitlistPartySize.Size = new System.Drawing.Size(100, 29);
+
+            this.labelWaitlistTableNumber.AutoSize = true;
+            this.labelWaitlistTableNumber.Location = new System.Drawing.Point(360, 30);
+            this.labelWaitlistTableNumber.Name = "labelWaitlistTableNumber";
+            this.labelWaitlistTableNumber.Text = "Seat At Table Number";
+
+            this.textBoxWaitlistTableNumber.Location = new System.Drawing.Point(360, 55);
+            this.textBoxWaitlistTableNumber.Name = "textBoxWaitlistTableNumber";
+            this.textBoxWaitlistTableNumber.Size = new System.Drawing.Size(120, 29);
 
             this.buttonAddWaitlist.Location = new System.Drawing.Point(20, 100);
             this.buttonAddWaitlist.Name = "buttonAddWaitlist";
