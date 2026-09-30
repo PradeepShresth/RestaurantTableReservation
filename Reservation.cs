@@ -2,22 +2,10 @@ using System;
 
 namespace RestaurantTableReservation
 {
-    public class Reservation : ISeatable
+    public class Reservation : PartyBase, ISeatable
     {
-        public string GuestName { get; set; }
-        public int PartySize { get; set; }
-        public bool IsSeated { get; set; }
-
-        public Reservation(string guestName, int partySize)
+        public Reservation(string guestName, int partySize) : base(guestName, partySize)
         {
-            GuestName = guestName;
-            PartySize = partySize;
-            IsSeated = false;
-        }
-
-        public void MarkSeated()
-        {
-            IsSeated = true;
         }
     }
 }

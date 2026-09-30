@@ -22,10 +22,17 @@ namespace RestaurantTableReservation
 
         #region Windows Form Designer generated code
 
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem menuNewSystem;
+        private System.Windows.Forms.ToolStripMenuItem menuLoadData;
+        private System.Windows.Forms.ToolStripMenuItem menuSaveData;
+        private System.Windows.Forms.ToolStripMenuItem menuManageTables;
+        private System.Windows.Forms.ToolStripMenuItem menuExit;
         private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage tabPageTables;
         private System.Windows.Forms.TabPage tabPageReservations;
         private System.Windows.Forms.TabPage tabPageWaitlist;
+        private System.Windows.Forms.TabPage tabPageSummary;
 
         private System.Windows.Forms.GroupBox groupBoxTableDetails;
         private System.Windows.Forms.Label labelTableNumber;
@@ -40,15 +47,6 @@ namespace RestaurantTableReservation
         private System.Windows.Forms.Button buttonMarkTableFree;
         private System.Windows.Forms.DataGridView dataGridViewTables;
 
-        private System.Windows.Forms.GroupBox groupBoxReservationDetails;
-        private System.Windows.Forms.Label labelGuestName;
-        private System.Windows.Forms.TextBox textBoxGuestName;
-        private System.Windows.Forms.Label labelPartySize;
-        private System.Windows.Forms.TextBox textBoxPartySize;
-        private System.Windows.Forms.Label labelRequestedTime;
-        private System.Windows.Forms.DateTimePicker dateTimePickerRequestedTime;
-        private System.Windows.Forms.Label labelReservationTableNumber;
-        private System.Windows.Forms.TextBox textBoxReservationTableNumber;
         private System.Windows.Forms.Button buttonCreateReservation;
         private System.Windows.Forms.Button buttonModifyReservation;
         private System.Windows.Forms.Button buttonDeleteReservation;
@@ -68,16 +66,38 @@ namespace RestaurantTableReservation
         private System.Windows.Forms.Button buttonSeatParty;
         private System.Windows.Forms.DataGridView dataGridViewWaitlist;
 
+        private System.Windows.Forms.GroupBox groupBoxSearch;
+        private System.Windows.Forms.Label labelSearchBy;
+        private System.Windows.Forms.ComboBox comboBoxSearchBy;
+        private System.Windows.Forms.Label labelSearchText;
+        private System.Windows.Forms.TextBox textBoxSearch;
+        private System.Windows.Forms.Button buttonSearch;
+        private System.Windows.Forms.DataGridView dataGridViewSearchResults;
+        private System.Windows.Forms.GroupBox groupBoxSummary;
+        private System.Windows.Forms.Button buttonGenerateSummary;
+        private System.Windows.Forms.Label labelTotalReservationsToday;
+        private System.Windows.Forms.Label labelWaitlistLength;
+        private System.Windows.Forms.Label labelAvgTurnover;
+        private System.Windows.Forms.Label labelBusiestHour;
+        private System.Windows.Forms.Label labelFeedback;
+
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuNewSystem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuLoadData = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuSaveData = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuManageTables = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageTables = new System.Windows.Forms.TabPage();
             this.tabPageReservations = new System.Windows.Forms.TabPage();
             this.tabPageWaitlist = new System.Windows.Forms.TabPage();
+            this.tabPageSummary = new System.Windows.Forms.TabPage();
 
             this.groupBoxTableDetails = new System.Windows.Forms.GroupBox();
             this.labelTableNumber = new System.Windows.Forms.Label();
@@ -92,15 +112,6 @@ namespace RestaurantTableReservation
             this.buttonMarkTableFree = new System.Windows.Forms.Button();
             this.dataGridViewTables = new System.Windows.Forms.DataGridView();
 
-            this.groupBoxReservationDetails = new System.Windows.Forms.GroupBox();
-            this.labelGuestName = new System.Windows.Forms.Label();
-            this.textBoxGuestName = new System.Windows.Forms.TextBox();
-            this.labelPartySize = new System.Windows.Forms.Label();
-            this.textBoxPartySize = new System.Windows.Forms.TextBox();
-            this.labelRequestedTime = new System.Windows.Forms.Label();
-            this.dateTimePickerRequestedTime = new System.Windows.Forms.DateTimePicker();
-            this.labelReservationTableNumber = new System.Windows.Forms.Label();
-            this.textBoxReservationTableNumber = new System.Windows.Forms.TextBox();
             this.buttonCreateReservation = new System.Windows.Forms.Button();
             this.buttonModifyReservation = new System.Windows.Forms.Button();
             this.buttonDeleteReservation = new System.Windows.Forms.Button();
@@ -120,17 +131,63 @@ namespace RestaurantTableReservation
             this.buttonSeatParty = new System.Windows.Forms.Button();
             this.dataGridViewWaitlist = new System.Windows.Forms.DataGridView();
 
+            this.groupBoxSearch = new System.Windows.Forms.GroupBox();
+            this.labelSearchBy = new System.Windows.Forms.Label();
+            this.comboBoxSearchBy = new System.Windows.Forms.ComboBox();
+            this.labelSearchText = new System.Windows.Forms.Label();
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
+            this.buttonSearch = new System.Windows.Forms.Button();
+            this.dataGridViewSearchResults = new System.Windows.Forms.DataGridView();
+            this.groupBoxSummary = new System.Windows.Forms.GroupBox();
+            this.buttonGenerateSummary = new System.Windows.Forms.Button();
+            this.labelTotalReservationsToday = new System.Windows.Forms.Label();
+            this.labelWaitlistLength = new System.Windows.Forms.Label();
+            this.labelAvgTurnover = new System.Windows.Forms.Label();
+            this.labelBusiestHour = new System.Windows.Forms.Label();
+            this.labelFeedback = new System.Windows.Forms.Label();
+
             this.tabControlMain.SuspendLayout();
             this.tabPageTables.SuspendLayout();
             this.tabPageReservations.SuspendLayout();
             this.tabPageWaitlist.SuspendLayout();
+            this.tabPageSummary.SuspendLayout();
             this.groupBoxTableDetails.SuspendLayout();
-            this.groupBoxReservationDetails.SuspendLayout();
             this.groupBoxWaitlistDetails.SuspendLayout();
+            this.groupBoxSearch.SuspendLayout();
+            this.groupBoxSummary.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTables)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReservations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWaitlist)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSearchResults)).BeginInit();
             this.SuspendLayout();
+
+            //
+            // menuStrip1
+            //
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                this.menuNewSystem,
+                this.menuLoadData,
+                this.menuSaveData,
+                this.menuManageTables,
+                this.menuExit});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(890, 24);
+
+            this.menuNewSystem.Name = "menuNewSystem";
+            this.menuNewSystem.Text = "New System";
+
+            this.menuLoadData.Name = "menuLoadData";
+            this.menuLoadData.Text = "Load Data";
+
+            this.menuSaveData.Name = "menuSaveData";
+            this.menuSaveData.Text = "Save Data";
+
+            this.menuManageTables.Name = "menuManageTables";
+            this.menuManageTables.Text = "Manage Tables";
+
+            this.menuExit.Name = "menuExit";
+            this.menuExit.Text = "Exit";
 
             //
             // tabControlMain
@@ -138,13 +195,14 @@ namespace RestaurantTableReservation
             this.tabControlMain.Controls.Add(this.tabPageTables);
             this.tabControlMain.Controls.Add(this.tabPageReservations);
             this.tabControlMain.Controls.Add(this.tabPageWaitlist);
+            this.tabControlMain.Controls.Add(this.tabPageSummary);
             this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControlMain.Location = new System.Drawing.Point(15, 15);
+            this.tabControlMain.Location = new System.Drawing.Point(15, 30);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(860, 540);
+            this.tabControlMain.Size = new System.Drawing.Size(860, 525);
 
             //
             // tabPageTables
@@ -243,7 +301,10 @@ namespace RestaurantTableReservation
             //
             // tabPageReservations
             //
-            this.tabPageReservations.Controls.Add(this.groupBoxReservationDetails);
+            this.tabPageReservations.Controls.Add(this.buttonCreateReservation);
+            this.tabPageReservations.Controls.Add(this.buttonModifyReservation);
+            this.tabPageReservations.Controls.Add(this.buttonDeleteReservation);
+            this.tabPageReservations.Controls.Add(this.buttonSeatReservation);
             this.tabPageReservations.Controls.Add(this.dataGridViewReservations);
             this.tabPageReservations.Location = new System.Drawing.Point(4, 34);
             this.tabPageReservations.Name = "tabPageReservations";
@@ -252,83 +313,27 @@ namespace RestaurantTableReservation
             this.tabPageReservations.UseVisualStyleBackColor = true;
 
             //
-            // groupBoxReservationDetails
+            // Reservations tab buttons (Create/Modify open ReservationForm as a dialog)
             //
-            this.groupBoxReservationDetails.Controls.Add(this.labelGuestName);
-            this.groupBoxReservationDetails.Controls.Add(this.textBoxGuestName);
-            this.groupBoxReservationDetails.Controls.Add(this.labelPartySize);
-            this.groupBoxReservationDetails.Controls.Add(this.textBoxPartySize);
-            this.groupBoxReservationDetails.Controls.Add(this.labelRequestedTime);
-            this.groupBoxReservationDetails.Controls.Add(this.dateTimePickerRequestedTime);
-            this.groupBoxReservationDetails.Controls.Add(this.labelReservationTableNumber);
-            this.groupBoxReservationDetails.Controls.Add(this.textBoxReservationTableNumber);
-            this.groupBoxReservationDetails.Controls.Add(this.buttonCreateReservation);
-            this.groupBoxReservationDetails.Controls.Add(this.buttonModifyReservation);
-            this.groupBoxReservationDetails.Controls.Add(this.buttonDeleteReservation);
-            this.groupBoxReservationDetails.Controls.Add(this.buttonSeatReservation);
-            this.groupBoxReservationDetails.Location = new System.Drawing.Point(15, 10);
-            this.groupBoxReservationDetails.Name = "groupBoxReservationDetails";
-            this.groupBoxReservationDetails.Size = new System.Drawing.Size(820, 150);
-            this.groupBoxReservationDetails.TabStop = false;
-            this.groupBoxReservationDetails.Text = "Reservation Details";
-
-            this.labelGuestName.AutoSize = true;
-            this.labelGuestName.Location = new System.Drawing.Point(20, 30);
-            this.labelGuestName.Name = "labelGuestName";
-            this.labelGuestName.Text = "Guest Name";
-
-            this.textBoxGuestName.Location = new System.Drawing.Point(20, 55);
-            this.textBoxGuestName.Name = "textBoxGuestName";
-            this.textBoxGuestName.Size = new System.Drawing.Size(180, 29);
-
-            this.labelPartySize.AutoSize = true;
-            this.labelPartySize.Location = new System.Drawing.Point(220, 30);
-            this.labelPartySize.Name = "labelPartySize";
-            this.labelPartySize.Text = "Party Size";
-
-            this.textBoxPartySize.Location = new System.Drawing.Point(220, 55);
-            this.textBoxPartySize.Name = "textBoxPartySize";
-            this.textBoxPartySize.Size = new System.Drawing.Size(100, 29);
-
-            this.labelRequestedTime.AutoSize = true;
-            this.labelRequestedTime.Location = new System.Drawing.Point(340, 30);
-            this.labelRequestedTime.Name = "labelRequestedTime";
-            this.labelRequestedTime.Text = "Requested Time";
-
-            this.dateTimePickerRequestedTime.CustomFormat = "dd/MM/yyyy HH:mm";
-            this.dateTimePickerRequestedTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerRequestedTime.Location = new System.Drawing.Point(340, 55);
-            this.dateTimePickerRequestedTime.Name = "dateTimePickerRequestedTime";
-            this.dateTimePickerRequestedTime.Size = new System.Drawing.Size(180, 29);
-
-            this.labelReservationTableNumber.AutoSize = true;
-            this.labelReservationTableNumber.Location = new System.Drawing.Point(560, 30);
-            this.labelReservationTableNumber.Name = "labelReservationTableNumber";
-            this.labelReservationTableNumber.Text = "Table Number";
-
-            this.textBoxReservationTableNumber.Location = new System.Drawing.Point(560, 55);
-            this.textBoxReservationTableNumber.Name = "textBoxReservationTableNumber";
-            this.textBoxReservationTableNumber.Size = new System.Drawing.Size(120, 29);
-
-            this.buttonCreateReservation.Location = new System.Drawing.Point(20, 100);
+            this.buttonCreateReservation.Location = new System.Drawing.Point(15, 10);
             this.buttonCreateReservation.Name = "buttonCreateReservation";
             this.buttonCreateReservation.Size = new System.Drawing.Size(150, 32);
             this.buttonCreateReservation.Text = "Create Reservation";
             this.buttonCreateReservation.UseVisualStyleBackColor = true;
 
-            this.buttonModifyReservation.Location = new System.Drawing.Point(180, 100);
+            this.buttonModifyReservation.Location = new System.Drawing.Point(175, 10);
             this.buttonModifyReservation.Name = "buttonModifyReservation";
             this.buttonModifyReservation.Size = new System.Drawing.Size(120, 32);
             this.buttonModifyReservation.Text = "Modify";
             this.buttonModifyReservation.UseVisualStyleBackColor = true;
 
-            this.buttonDeleteReservation.Location = new System.Drawing.Point(310, 100);
+            this.buttonDeleteReservation.Location = new System.Drawing.Point(305, 10);
             this.buttonDeleteReservation.Name = "buttonDeleteReservation";
             this.buttonDeleteReservation.Size = new System.Drawing.Size(120, 32);
             this.buttonDeleteReservation.Text = "Delete";
             this.buttonDeleteReservation.UseVisualStyleBackColor = true;
 
-            this.buttonSeatReservation.Location = new System.Drawing.Point(440, 100);
+            this.buttonSeatReservation.Location = new System.Drawing.Point(435, 10);
             this.buttonSeatReservation.Name = "buttonSeatReservation";
             this.buttonSeatReservation.Size = new System.Drawing.Size(120, 32);
             this.buttonSeatReservation.Text = "Seat Party";
@@ -341,11 +346,11 @@ namespace RestaurantTableReservation
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewReservations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewReservations.Location = new System.Drawing.Point(15, 170);
+            this.dataGridViewReservations.Location = new System.Drawing.Point(15, 55);
             this.dataGridViewReservations.Name = "dataGridViewReservations";
             this.dataGridViewReservations.RowHeadersWidth = 62;
             this.dataGridViewReservations.RowTemplate.Height = 28;
-            this.dataGridViewReservations.Size = new System.Drawing.Size(820, 320);
+            this.dataGridViewReservations.Size = new System.Drawing.Size(820, 435);
 
             //
             // tabPageWaitlist
@@ -442,28 +447,152 @@ namespace RestaurantTableReservation
             this.dataGridViewWaitlist.Size = new System.Drawing.Size(820, 320);
 
             //
+            // tabPageSummary
+            //
+            this.tabPageSummary.Controls.Add(this.groupBoxSearch);
+            this.tabPageSummary.Controls.Add(this.dataGridViewSearchResults);
+            this.tabPageSummary.Controls.Add(this.groupBoxSummary);
+            this.tabPageSummary.Location = new System.Drawing.Point(4, 34);
+            this.tabPageSummary.Name = "tabPageSummary";
+            this.tabPageSummary.Size = new System.Drawing.Size(852, 502);
+            this.tabPageSummary.Text = "Summary && Search";
+            this.tabPageSummary.UseVisualStyleBackColor = true;
+
+            //
+            // groupBoxSearch
+            //
+            this.groupBoxSearch.Controls.Add(this.labelSearchBy);
+            this.groupBoxSearch.Controls.Add(this.comboBoxSearchBy);
+            this.groupBoxSearch.Controls.Add(this.labelSearchText);
+            this.groupBoxSearch.Controls.Add(this.textBoxSearch);
+            this.groupBoxSearch.Controls.Add(this.buttonSearch);
+            this.groupBoxSearch.Location = new System.Drawing.Point(15, 10);
+            this.groupBoxSearch.Name = "groupBoxSearch";
+            this.groupBoxSearch.Size = new System.Drawing.Size(820, 90);
+            this.groupBoxSearch.TabStop = false;
+            this.groupBoxSearch.Text = "Search";
+
+            this.labelSearchBy.AutoSize = true;
+            this.labelSearchBy.Location = new System.Drawing.Point(20, 20);
+            this.labelSearchBy.Name = "labelSearchBy";
+            this.labelSearchBy.Text = "Search By";
+
+            this.comboBoxSearchBy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSearchBy.Location = new System.Drawing.Point(20, 40);
+            this.comboBoxSearchBy.Name = "comboBoxSearchBy";
+            this.comboBoxSearchBy.Size = new System.Drawing.Size(180, 29);
+            this.comboBoxSearchBy.Items.AddRange(new object[] {
+                "Guest Name",
+                "Table Number",
+                "Reservation Time",
+                "Waitlist Status"});
+
+            this.labelSearchText.AutoSize = true;
+            this.labelSearchText.Location = new System.Drawing.Point(220, 20);
+            this.labelSearchText.Name = "labelSearchText";
+            this.labelSearchText.Text = "Search Text";
+
+            this.textBoxSearch.Location = new System.Drawing.Point(220, 40);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(220, 29);
+
+            this.buttonSearch.Location = new System.Drawing.Point(460, 38);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(120, 32);
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+
+            //
+            // dataGridViewSearchResults
+            //
+            this.dataGridViewSearchResults.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewSearchResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewSearchResults.Location = new System.Drawing.Point(15, 110);
+            this.dataGridViewSearchResults.Name = "dataGridViewSearchResults";
+            this.dataGridViewSearchResults.RowHeadersWidth = 62;
+            this.dataGridViewSearchResults.RowTemplate.Height = 28;
+            this.dataGridViewSearchResults.Size = new System.Drawing.Size(820, 180);
+
+            //
+            // groupBoxSummary
+            //
+            this.groupBoxSummary.Controls.Add(this.buttonGenerateSummary);
+            this.groupBoxSummary.Controls.Add(this.labelTotalReservationsToday);
+            this.groupBoxSummary.Controls.Add(this.labelWaitlistLength);
+            this.groupBoxSummary.Controls.Add(this.labelAvgTurnover);
+            this.groupBoxSummary.Controls.Add(this.labelBusiestHour);
+            this.groupBoxSummary.Controls.Add(this.labelFeedback);
+            this.groupBoxSummary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxSummary.Location = new System.Drawing.Point(15, 300);
+            this.groupBoxSummary.Name = "groupBoxSummary";
+            this.groupBoxSummary.Size = new System.Drawing.Size(820, 195);
+            this.groupBoxSummary.TabStop = false;
+            this.groupBoxSummary.Text = "Service Summary";
+
+            this.buttonGenerateSummary.Location = new System.Drawing.Point(20, 30);
+            this.buttonGenerateSummary.Name = "buttonGenerateSummary";
+            this.buttonGenerateSummary.Size = new System.Drawing.Size(180, 32);
+            this.buttonGenerateSummary.Text = "Generate Summary";
+            this.buttonGenerateSummary.UseVisualStyleBackColor = true;
+
+            this.labelTotalReservationsToday.AutoSize = true;
+            this.labelTotalReservationsToday.Location = new System.Drawing.Point(20, 75);
+            this.labelTotalReservationsToday.Name = "labelTotalReservationsToday";
+            this.labelTotalReservationsToday.Text = "Total reservations today: -";
+
+            this.labelWaitlistLength.AutoSize = true;
+            this.labelWaitlistLength.Location = new System.Drawing.Point(20, 99);
+            this.labelWaitlistLength.Name = "labelWaitlistLength";
+            this.labelWaitlistLength.Text = "Current waitlist length: -";
+
+            this.labelAvgTurnover.AutoSize = true;
+            this.labelAvgTurnover.Location = new System.Drawing.Point(20, 123);
+            this.labelAvgTurnover.Name = "labelAvgTurnover";
+            this.labelAvgTurnover.Text = "Average table turnover: -";
+
+            this.labelBusiestHour.AutoSize = true;
+            this.labelBusiestHour.Location = new System.Drawing.Point(20, 147);
+            this.labelBusiestHour.Name = "labelBusiestHour";
+            this.labelBusiestHour.Text = "Busiest hour: -";
+
+            this.labelFeedback.AutoSize = true;
+            this.labelFeedback.Location = new System.Drawing.Point(20, 171);
+            this.labelFeedback.Name = "labelFeedback";
+            this.labelFeedback.Text = "";
+
+            //
             // Form1
             //
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(890, 570);
             this.MinimumSize = new System.Drawing.Size(750, 450);
             this.Controls.Add(this.tabControlMain);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Restaurant Table Reservation System";
 
             this.groupBoxTableDetails.ResumeLayout(false);
             this.groupBoxTableDetails.PerformLayout();
-            this.groupBoxReservationDetails.ResumeLayout(false);
-            this.groupBoxReservationDetails.PerformLayout();
             this.groupBoxWaitlistDetails.ResumeLayout(false);
             this.groupBoxWaitlistDetails.PerformLayout();
+            this.groupBoxSearch.ResumeLayout(false);
+            this.groupBoxSearch.PerformLayout();
+            this.groupBoxSummary.ResumeLayout(false);
+            this.groupBoxSummary.PerformLayout();
             this.tabPageTables.ResumeLayout(false);
             this.tabPageReservations.ResumeLayout(false);
             this.tabPageWaitlist.ResumeLayout(false);
+            this.tabPageSummary.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTables)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReservations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWaitlist)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSearchResults)).EndInit();
             this.tabControlMain.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }

@@ -47,8 +47,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ISeatable.cs" />
+    <Compile Include="PartyBase.cs" />
     <Compile Include="Reservation.cs" />
     <Compile Include="WaitlistEntry.cs" />
+    <Compile Include="ReservationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReservationForm.Designer.cs">
+      <DependentUpon>ReservationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
