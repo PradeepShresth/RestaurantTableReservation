@@ -904,6 +904,16 @@ namespace RestaurantTableReservation
                 return;
             }
 
+            // table number is used to look up tables everywhere else, so no two tables can share one
+            foreach (DataGridViewRow row in dataGridViewTables.Rows)
+            {
+                if (Convert.ToInt32(row.Cells["colTableNumber"].Value) == tableNumber)
+                {
+                    MessageBox.Show("A table with that number already exists.");
+                    return;
+                }
+            }
+
             dataGridViewTables.Rows.Add(tableNumber, capacity, textBoxSection.Text, "Free", "");
             hasUnsavedChanges = true;
 
@@ -942,6 +952,21 @@ namespace RestaurantTableReservation
             }
 
             DataGridViewRow row = dataGridViewTables.SelectedRows[0];
+
+            // make sure the new number doesn't clash with a different table
+            foreach (DataGridViewRow otherRow in dataGridViewTables.Rows)
+            {
+                if (otherRow.Index == row.Index)
+                {
+                    continue;
+                }
+                if (Convert.ToInt32(otherRow.Cells["colTableNumber"].Value) == tableNumber)
+                {
+                    MessageBox.Show("A table with that number already exists.");
+                    return;
+                }
+            }
+
             row.Cells["colTableNumber"].Value = tableNumber;
             row.Cells["colCapacity"].Value = capacity;
             row.Cells["colSection"].Value = textBoxSection.Text;
