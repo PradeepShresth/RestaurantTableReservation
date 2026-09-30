@@ -65,6 +65,7 @@ namespace RestaurantTableReservation
             this.textBoxPartySize.Location = new System.Drawing.Point(20, 100);
             this.textBoxPartySize.Name = "textBoxPartySize";
             this.textBoxPartySize.Size = new System.Drawing.Size(120, 29);
+            this.textBoxPartySize.TextChanged += new System.EventHandler(this.textBoxPartySize_TextChanged);
             //
             // labelRequestedTime
             //
@@ -80,6 +81,7 @@ namespace RestaurantTableReservation
             this.dateTimePickerRequestedTime.Location = new System.Drawing.Point(20, 160);
             this.dateTimePickerRequestedTime.Name = "dateTimePickerRequestedTime";
             this.dateTimePickerRequestedTime.Size = new System.Drawing.Size(220, 29);
+            this.dateTimePickerRequestedTime.ValueChanged += new System.EventHandler(this.dateTimePickerRequestedTime_ValueChanged);
             //
             // labelTableNumber
             //
@@ -101,6 +103,7 @@ namespace RestaurantTableReservation
             this.buttonOK.Size = new System.Drawing.Size(110, 32);
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             //
             // buttonCancel
             //
@@ -109,6 +112,7 @@ namespace RestaurantTableReservation
             this.buttonCancel.Size = new System.Drawing.Size(110, 32);
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             //
             // ReservationForm
             //
@@ -130,6 +134,7 @@ namespace RestaurantTableReservation
             this.Name = "ReservationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Reservation Details";
+            this.Load += new System.EventHandler(this.ReservationForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
         }

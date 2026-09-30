@@ -28,12 +28,6 @@ namespace RestaurantTableReservation
 
             this.tablesGrid = tablesGrid;
             this.reservationsGrid = reservationsGrid;
-
-            buttonOK.Click += buttonOK_Click;
-            buttonCancel.Click += buttonCancel_Click;
-            this.Load += ReservationForm_Load;
-            textBoxPartySize.TextChanged += textBoxPartySize_TextChanged;
-            dateTimePickerRequestedTime.ValueChanged += dateTimePickerRequestedTime_ValueChanged;
         }
 
         private void ReservationForm_Load(object sender, EventArgs e)

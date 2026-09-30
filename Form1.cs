@@ -16,66 +16,6 @@ namespace RestaurantTableReservation
         public Form1()
         {
             InitializeComponent();
-
-            dataGridViewTables.Columns.Add("colTableNumber", "Table Number");
-            dataGridViewTables.Columns.Add("colCapacity", "Capacity");
-            dataGridViewTables.Columns.Add("colSection", "Section");
-            dataGridViewTables.Columns.Add("colTableStatus", "Status");
-            dataGridViewTables.Columns.Add("colOccupiedSince", "Occupied Since");
-            // Data only ever gets added through the fields + buttons above, so turn off the
-            // grid's own blank "type a new row here" row - otherwise code that loops over
-            // Rows can hit that empty row and blow up on its null cell values.
-            dataGridViewTables.AllowUserToAddRows = false;
-            // Editing only ever happens through the fields + Modify button above, never by
-            // typing straight into a cell - otherwise someone could turn "Capacity" into text
-            // and every Convert.ToInt32() call elsewhere would start throwing.
-            dataGridViewTables.ReadOnly = true;
-
-            dataGridViewReservations.Columns.Add("colResGuestName", "Guest Name");
-            dataGridViewReservations.Columns.Add("colResPartySize", "Party Size");
-            dataGridViewReservations.Columns.Add("colResTime", "Requested Time");
-            dataGridViewReservations.Columns.Add("colResTableNumber", "Table Number");
-            dataGridViewReservations.AllowUserToAddRows = false;
-            dataGridViewReservations.ReadOnly = true;
-
-            buttonAddTable.Click += buttonAddTable_Click;
-            buttonModifyTable.Click += buttonModifyTable_Click;
-            buttonDeleteTable.Click += buttonDeleteTable_Click;
-            dataGridViewTables.SelectionChanged += dataGridViewTables_SelectionChanged;
-
-            buttonCreateReservation.Click += buttonCreateReservation_Click;
-            buttonModifyReservation.Click += buttonModifyReservation_Click;
-            buttonDeleteReservation.Click += buttonDeleteReservation_Click;
-            buttonSeatReservation.Click += buttonSeatReservation_Click;
-
-            dataGridViewWaitlist.Columns.Add("colWaitGuestName", "Guest Name");
-            dataGridViewWaitlist.Columns.Add("colWaitPartySize", "Party Size");
-            dataGridViewWaitlist.Columns.Add("colWaitArrivalTime", "Arrival Time");
-            dataGridViewWaitlist.Columns.Add("colWaitEstimatedWait", "Estimated Wait (min)");
-            dataGridViewWaitlist.Columns.Add("colWaitStatus", "Status");
-            dataGridViewWaitlist.AllowUserToAddRows = false;
-            dataGridViewWaitlist.ReadOnly = true;
-
-            buttonAddWaitlist.Click += buttonAddWaitlist_Click;
-            buttonModifyWaitlist.Click += buttonModifyWaitlist_Click;
-            buttonDeleteWaitlist.Click += buttonDeleteWaitlist_Click;
-            buttonSeatParty.Click += buttonSeatParty_Click;
-            dataGridViewWaitlist.SelectionChanged += dataGridViewWaitlist_SelectionChanged;
-
-            buttonMarkTableFree.Click += buttonMarkTableFree_Click;
-
-            dataGridViewSearchResults.AllowUserToAddRows = false;
-            dataGridViewSearchResults.ReadOnly = true;
-            buttonSearch.Click += buttonSearch_Click;
-            buttonGenerateSummary.Click += buttonGenerateSummary_Click;
-
-            menuNewSystem.Click += menuNewSystem_Click;
-            menuLoadData.Click += menuLoadData_Click;
-            menuSaveData.Click += menuSaveData_Click;
-            menuManageTables.Click += menuManageTables_Click;
-            menuExit.Click += menuExit_Click;
-
-            this.FormClosing += Form1_FormClosing;
         }
 
         // Set to true by every action that changes the data, and cleared after a
@@ -301,6 +241,17 @@ namespace RestaurantTableReservation
             }
         }
 
+        // The search results grid rebuilds its columns from scratch depending on which
+        // "Search By" mode is picked, so column widths cannot be set once at design time.
+        // Guest Name and Party Size appear in both modes and should look the same size
+        // either way, so each width below is the largest that column ever needs to be.
+        private const int resultColGuestNameWidth = 180;
+        private const int resultColPartySizeWidth = 90;
+        private const int resultColTimeWidth = 150;
+        private const int resultColTableNumberWidth = 110;
+        private const int resultColEstimatedWaitWidth = 160;
+        private const int resultColStatusWidth = 90;
+
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             if (comboBoxSearchBy.SelectedItem == null)
@@ -323,6 +274,12 @@ namespace RestaurantTableReservation
                 dataGridViewSearchResults.Columns.Add("colResultWait", "Estimated Wait (min)");
                 dataGridViewSearchResults.Columns.Add("colResultStatus", "Status");
 
+                dataGridViewSearchResults.Columns["colResultGuestName"].Width = resultColGuestNameWidth;
+                dataGridViewSearchResults.Columns["colResultPartySize"].Width = resultColPartySizeWidth;
+                dataGridViewSearchResults.Columns["colResultArrival"].Width = resultColTimeWidth;
+                dataGridViewSearchResults.Columns["colResultWait"].Width = resultColEstimatedWaitWidth;
+                dataGridViewSearchResults.Columns["colResultStatus"].Width = resultColStatusWidth;
+
                 foreach (DataGridViewRow row in dataGridViewWaitlist.Rows)
                 {
                     string status = row.Cells["colWaitStatus"].Value.ToString();
@@ -343,6 +300,11 @@ namespace RestaurantTableReservation
                 dataGridViewSearchResults.Columns.Add("colResultPartySize", "Party Size");
                 dataGridViewSearchResults.Columns.Add("colResultTime", "Requested Time");
                 dataGridViewSearchResults.Columns.Add("colResultTable", "Table Number");
+
+                dataGridViewSearchResults.Columns["colResultGuestName"].Width = resultColGuestNameWidth;
+                dataGridViewSearchResults.Columns["colResultPartySize"].Width = resultColPartySizeWidth;
+                dataGridViewSearchResults.Columns["colResultTime"].Width = resultColTimeWidth;
+                dataGridViewSearchResults.Columns["colResultTable"].Width = resultColTableNumberWidth;
 
                 foreach (DataGridViewRow row in dataGridViewReservations.Rows)
                 {

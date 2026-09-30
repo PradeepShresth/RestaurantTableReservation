@@ -46,12 +46,21 @@ namespace RestaurantTableReservation
         private System.Windows.Forms.Button buttonDeleteTable;
         private System.Windows.Forms.Button buttonMarkTableFree;
         private System.Windows.Forms.DataGridView dataGridViewTables;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTableNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCapacity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colSection;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTableStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colOccupiedSince;
 
         private System.Windows.Forms.Button buttonCreateReservation;
         private System.Windows.Forms.Button buttonModifyReservation;
         private System.Windows.Forms.Button buttonDeleteReservation;
         private System.Windows.Forms.Button buttonSeatReservation;
         private System.Windows.Forms.DataGridView dataGridViewReservations;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colResGuestName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colResPartySize;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colResTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colResTableNumber;
 
         private System.Windows.Forms.GroupBox groupBoxWaitlistDetails;
         private System.Windows.Forms.Label labelWaitlistGuestName;
@@ -65,6 +74,11 @@ namespace RestaurantTableReservation
         private System.Windows.Forms.Button buttonDeleteWaitlist;
         private System.Windows.Forms.Button buttonSeatParty;
         private System.Windows.Forms.DataGridView dataGridViewWaitlist;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colWaitGuestName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colWaitPartySize;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colWaitArrivalTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colWaitEstimatedWait;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colWaitStatus;
 
         private System.Windows.Forms.GroupBox groupBoxSearch;
         private System.Windows.Forms.Label labelSearchBy;
@@ -111,12 +125,21 @@ namespace RestaurantTableReservation
             this.buttonDeleteTable = new System.Windows.Forms.Button();
             this.buttonMarkTableFree = new System.Windows.Forms.Button();
             this.dataGridViewTables = new System.Windows.Forms.DataGridView();
+            this.colTableNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCapacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSection = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTableStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colOccupiedSince = new System.Windows.Forms.DataGridViewTextBoxColumn();
 
             this.buttonCreateReservation = new System.Windows.Forms.Button();
             this.buttonModifyReservation = new System.Windows.Forms.Button();
             this.buttonDeleteReservation = new System.Windows.Forms.Button();
             this.buttonSeatReservation = new System.Windows.Forms.Button();
             this.dataGridViewReservations = new System.Windows.Forms.DataGridView();
+            this.colResGuestName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colResPartySize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colResTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colResTableNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
 
             this.groupBoxWaitlistDetails = new System.Windows.Forms.GroupBox();
             this.labelWaitlistGuestName = new System.Windows.Forms.Label();
@@ -130,6 +153,11 @@ namespace RestaurantTableReservation
             this.buttonDeleteWaitlist = new System.Windows.Forms.Button();
             this.buttonSeatParty = new System.Windows.Forms.Button();
             this.dataGridViewWaitlist = new System.Windows.Forms.DataGridView();
+            this.colWaitGuestName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colWaitPartySize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colWaitArrivalTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colWaitEstimatedWait = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colWaitStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
 
             this.groupBoxSearch = new System.Windows.Forms.GroupBox();
             this.labelSearchBy = new System.Windows.Forms.Label();
@@ -176,18 +204,23 @@ namespace RestaurantTableReservation
 
             this.menuNewSystem.Name = "menuNewSystem";
             this.menuNewSystem.Text = "New System";
+            this.menuNewSystem.Click += new System.EventHandler(this.menuNewSystem_Click);
 
             this.menuLoadData.Name = "menuLoadData";
             this.menuLoadData.Text = "Load Data";
+            this.menuLoadData.Click += new System.EventHandler(this.menuLoadData_Click);
 
             this.menuSaveData.Name = "menuSaveData";
             this.menuSaveData.Text = "Save Data";
+            this.menuSaveData.Click += new System.EventHandler(this.menuSaveData_Click);
 
             this.menuManageTables.Name = "menuManageTables";
             this.menuManageTables.Text = "Manage Tables";
+            this.menuManageTables.Click += new System.EventHandler(this.menuManageTables_Click);
 
             this.menuExit.Name = "menuExit";
             this.menuExit.Text = "Exit";
+            this.menuExit.Click += new System.EventHandler(this.menuExit_Click);
 
             //
             // tabControlMain
@@ -266,24 +299,54 @@ namespace RestaurantTableReservation
             this.buttonAddTable.Size = new System.Drawing.Size(120, 32);
             this.buttonAddTable.Text = "Add Table";
             this.buttonAddTable.UseVisualStyleBackColor = true;
+            this.buttonAddTable.Click += new System.EventHandler(this.buttonAddTable_Click);
 
             this.buttonModifyTable.Location = new System.Drawing.Point(150, 100);
             this.buttonModifyTable.Name = "buttonModifyTable";
             this.buttonModifyTable.Size = new System.Drawing.Size(120, 32);
             this.buttonModifyTable.Text = "Modify";
             this.buttonModifyTable.UseVisualStyleBackColor = true;
+            this.buttonModifyTable.Click += new System.EventHandler(this.buttonModifyTable_Click);
 
             this.buttonDeleteTable.Location = new System.Drawing.Point(280, 100);
             this.buttonDeleteTable.Name = "buttonDeleteTable";
             this.buttonDeleteTable.Size = new System.Drawing.Size(120, 32);
             this.buttonDeleteTable.Text = "Delete";
             this.buttonDeleteTable.UseVisualStyleBackColor = true;
+            this.buttonDeleteTable.Click += new System.EventHandler(this.buttonDeleteTable_Click);
 
             this.buttonMarkTableFree.Location = new System.Drawing.Point(410, 100);
             this.buttonMarkTableFree.Name = "buttonMarkTableFree";
             this.buttonMarkTableFree.Size = new System.Drawing.Size(140, 32);
             this.buttonMarkTableFree.Text = "Mark Table Free";
             this.buttonMarkTableFree.UseVisualStyleBackColor = true;
+            this.buttonMarkTableFree.Click += new System.EventHandler(this.buttonMarkTableFree_Click);
+
+            //
+            // colTableNumber
+            //
+            this.colTableNumber.HeaderText = "Table Number";
+            this.colTableNumber.Name = "colTableNumber";
+            //
+            // colCapacity
+            //
+            this.colCapacity.HeaderText = "Capacity";
+            this.colCapacity.Name = "colCapacity";
+            //
+            // colSection
+            //
+            this.colSection.HeaderText = "Section";
+            this.colSection.Name = "colSection";
+            //
+            // colTableStatus
+            //
+            this.colTableStatus.HeaderText = "Status";
+            this.colTableStatus.Name = "colTableStatus";
+            //
+            // colOccupiedSince
+            //
+            this.colOccupiedSince.HeaderText = "Occupied Since";
+            this.colOccupiedSince.Name = "colOccupiedSince";
 
             //
             // dataGridViewTables
@@ -291,12 +354,21 @@ namespace RestaurantTableReservation
             this.dataGridViewTables.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewTables.AllowUserToAddRows = false;
+            this.dataGridViewTables.ReadOnly = true;
+            this.dataGridViewTables.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+                this.colTableNumber,
+                this.colCapacity,
+                this.colSection,
+                this.colTableStatus,
+                this.colOccupiedSince});
             this.dataGridViewTables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTables.Location = new System.Drawing.Point(15, 170);
             this.dataGridViewTables.Name = "dataGridViewTables";
             this.dataGridViewTables.RowHeadersWidth = 62;
             this.dataGridViewTables.RowTemplate.Height = 28;
             this.dataGridViewTables.Size = new System.Drawing.Size(820, 320);
+            this.dataGridViewTables.SelectionChanged += new System.EventHandler(this.dataGridViewTables_SelectionChanged);
 
             //
             // tabPageReservations
@@ -320,24 +392,49 @@ namespace RestaurantTableReservation
             this.buttonCreateReservation.Size = new System.Drawing.Size(150, 32);
             this.buttonCreateReservation.Text = "Create Reservation";
             this.buttonCreateReservation.UseVisualStyleBackColor = true;
+            this.buttonCreateReservation.Click += new System.EventHandler(this.buttonCreateReservation_Click);
 
             this.buttonModifyReservation.Location = new System.Drawing.Point(175, 10);
             this.buttonModifyReservation.Name = "buttonModifyReservation";
             this.buttonModifyReservation.Size = new System.Drawing.Size(120, 32);
             this.buttonModifyReservation.Text = "Modify";
             this.buttonModifyReservation.UseVisualStyleBackColor = true;
+            this.buttonModifyReservation.Click += new System.EventHandler(this.buttonModifyReservation_Click);
 
             this.buttonDeleteReservation.Location = new System.Drawing.Point(305, 10);
             this.buttonDeleteReservation.Name = "buttonDeleteReservation";
             this.buttonDeleteReservation.Size = new System.Drawing.Size(120, 32);
             this.buttonDeleteReservation.Text = "Delete";
             this.buttonDeleteReservation.UseVisualStyleBackColor = true;
+            this.buttonDeleteReservation.Click += new System.EventHandler(this.buttonDeleteReservation_Click);
 
             this.buttonSeatReservation.Location = new System.Drawing.Point(435, 10);
             this.buttonSeatReservation.Name = "buttonSeatReservation";
             this.buttonSeatReservation.Size = new System.Drawing.Size(120, 32);
             this.buttonSeatReservation.Text = "Seat Party";
             this.buttonSeatReservation.UseVisualStyleBackColor = true;
+            this.buttonSeatReservation.Click += new System.EventHandler(this.buttonSeatReservation_Click);
+
+            //
+            // colResGuestName
+            //
+            this.colResGuestName.HeaderText = "Guest Name";
+            this.colResGuestName.Name = "colResGuestName";
+            //
+            // colResPartySize
+            //
+            this.colResPartySize.HeaderText = "Party Size";
+            this.colResPartySize.Name = "colResPartySize";
+            //
+            // colResTime
+            //
+            this.colResTime.HeaderText = "Requested Time";
+            this.colResTime.Name = "colResTime";
+            //
+            // colResTableNumber
+            //
+            this.colResTableNumber.HeaderText = "Table Number";
+            this.colResTableNumber.Name = "colResTableNumber";
 
             //
             // dataGridViewReservations
@@ -345,6 +442,13 @@ namespace RestaurantTableReservation
             this.dataGridViewReservations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewReservations.AllowUserToAddRows = false;
+            this.dataGridViewReservations.ReadOnly = true;
+            this.dataGridViewReservations.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+                this.colResGuestName,
+                this.colResPartySize,
+                this.colResTime,
+                this.colResTableNumber});
             this.dataGridViewReservations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewReservations.Location = new System.Drawing.Point(15, 55);
             this.dataGridViewReservations.Name = "dataGridViewReservations";
@@ -414,24 +518,54 @@ namespace RestaurantTableReservation
             this.buttonAddWaitlist.Size = new System.Drawing.Size(150, 32);
             this.buttonAddWaitlist.Text = "Add to Waitlist";
             this.buttonAddWaitlist.UseVisualStyleBackColor = true;
+            this.buttonAddWaitlist.Click += new System.EventHandler(this.buttonAddWaitlist_Click);
 
             this.buttonModifyWaitlist.Location = new System.Drawing.Point(180, 100);
             this.buttonModifyWaitlist.Name = "buttonModifyWaitlist";
             this.buttonModifyWaitlist.Size = new System.Drawing.Size(120, 32);
             this.buttonModifyWaitlist.Text = "Modify";
             this.buttonModifyWaitlist.UseVisualStyleBackColor = true;
+            this.buttonModifyWaitlist.Click += new System.EventHandler(this.buttonModifyWaitlist_Click);
 
             this.buttonDeleteWaitlist.Location = new System.Drawing.Point(310, 100);
             this.buttonDeleteWaitlist.Name = "buttonDeleteWaitlist";
             this.buttonDeleteWaitlist.Size = new System.Drawing.Size(120, 32);
             this.buttonDeleteWaitlist.Text = "Delete";
             this.buttonDeleteWaitlist.UseVisualStyleBackColor = true;
+            this.buttonDeleteWaitlist.Click += new System.EventHandler(this.buttonDeleteWaitlist_Click);
 
             this.buttonSeatParty.Location = new System.Drawing.Point(440, 100);
             this.buttonSeatParty.Name = "buttonSeatParty";
             this.buttonSeatParty.Size = new System.Drawing.Size(120, 32);
             this.buttonSeatParty.Text = "Seat Party";
             this.buttonSeatParty.UseVisualStyleBackColor = true;
+            this.buttonSeatParty.Click += new System.EventHandler(this.buttonSeatParty_Click);
+
+            //
+            // colWaitGuestName
+            //
+            this.colWaitGuestName.HeaderText = "Guest Name";
+            this.colWaitGuestName.Name = "colWaitGuestName";
+            //
+            // colWaitPartySize
+            //
+            this.colWaitPartySize.HeaderText = "Party Size";
+            this.colWaitPartySize.Name = "colWaitPartySize";
+            //
+            // colWaitArrivalTime
+            //
+            this.colWaitArrivalTime.HeaderText = "Arrival Time";
+            this.colWaitArrivalTime.Name = "colWaitArrivalTime";
+            //
+            // colWaitEstimatedWait
+            //
+            this.colWaitEstimatedWait.HeaderText = "Estimated Wait (min)";
+            this.colWaitEstimatedWait.Name = "colWaitEstimatedWait";
+            //
+            // colWaitStatus
+            //
+            this.colWaitStatus.HeaderText = "Status";
+            this.colWaitStatus.Name = "colWaitStatus";
 
             //
             // dataGridViewWaitlist
@@ -439,12 +573,21 @@ namespace RestaurantTableReservation
             this.dataGridViewWaitlist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewWaitlist.AllowUserToAddRows = false;
+            this.dataGridViewWaitlist.ReadOnly = true;
+            this.dataGridViewWaitlist.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+                this.colWaitGuestName,
+                this.colWaitPartySize,
+                this.colWaitArrivalTime,
+                this.colWaitEstimatedWait,
+                this.colWaitStatus});
             this.dataGridViewWaitlist.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewWaitlist.Location = new System.Drawing.Point(15, 170);
             this.dataGridViewWaitlist.Name = "dataGridViewWaitlist";
             this.dataGridViewWaitlist.RowHeadersWidth = 62;
             this.dataGridViewWaitlist.RowTemplate.Height = 28;
             this.dataGridViewWaitlist.Size = new System.Drawing.Size(820, 320);
+            this.dataGridViewWaitlist.SelectionChanged += new System.EventHandler(this.dataGridViewWaitlist_SelectionChanged);
 
             //
             // tabPageSummary
@@ -501,12 +644,17 @@ namespace RestaurantTableReservation
             this.buttonSearch.Size = new System.Drawing.Size(120, 32);
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
 
             //
             // dataGridViewSearchResults
             //
+            // Columns are not fixed at design time - they change shape depending on which
+            // "Search By" mode is selected, so they are built up in code in buttonSearch_Click.
             this.dataGridViewSearchResults.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewSearchResults.AllowUserToAddRows = false;
+            this.dataGridViewSearchResults.ReadOnly = true;
             this.dataGridViewSearchResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewSearchResults.Location = new System.Drawing.Point(15, 110);
             this.dataGridViewSearchResults.Name = "dataGridViewSearchResults";
@@ -536,6 +684,7 @@ namespace RestaurantTableReservation
             this.buttonGenerateSummary.Size = new System.Drawing.Size(180, 32);
             this.buttonGenerateSummary.Text = "Generate Summary";
             this.buttonGenerateSummary.UseVisualStyleBackColor = true;
+            this.buttonGenerateSummary.Click += new System.EventHandler(this.buttonGenerateSummary_Click);
 
             this.labelTotalReservationsToday.AutoSize = true;
             this.labelTotalReservationsToday.Location = new System.Drawing.Point(20, 75);
@@ -573,6 +722,7 @@ namespace RestaurantTableReservation
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Restaurant Table Reservation System";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
 
             this.groupBoxTableDetails.ResumeLayout(false);
             this.groupBoxTableDetails.PerformLayout();
