@@ -5,13 +5,13 @@ namespace RestaurantTableReservation
 {
     public partial class ReservationForm : Form
     {
-        // used to pass values in/out of this form (Form1 sets these before ShowDialog for modify)
+        // used to pass values in/out of this form (MainForm sets these before ShowDialog for modify)
         public string GuestName { get; set; }
         public int PartySize { get; set; }
         public DateTime RequestedTime { get; set; }
         public int TableNumber { get; set; }
 
-        // grids passed in from Form1 so we can look up tables and existing bookings
+        // grids passed in from MainForm so we can look up tables and existing bookings
         private DataGridView tablesGrid;
         private DataGridView reservationsGrid;
 
@@ -72,7 +72,7 @@ namespace RestaurantTableReservation
                 return;
             }
 
-            // same rule as Form1, bookings need to be at least 75 min apart (90 min minus 15 min buffer)
+            // same rule as MainForm, bookings need to be at least 75 min apart (90 min minus 15 min buffer)
             const int averageDiningMinutes = 90;
             const int overbookingBufferMinutes = 15;
             int minimumGapMinutes = averageDiningMinutes - overbookingBufferMinutes;

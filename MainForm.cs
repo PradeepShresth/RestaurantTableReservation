@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace RestaurantTableReservation
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -21,7 +21,7 @@ namespace RestaurantTableReservation
         // true if data changed since the last save
         private bool hasUnsavedChanges = false;
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!hasUnsavedChanges)
             {

@@ -1,6 +1,6 @@
 namespace RestaurantTableReservation
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -711,7 +711,7 @@ namespace RestaurantTableReservation
             this.labelFeedback.Text = "";
 
             //
-            // Form1
+            // MainForm
             //
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(890, 570);
@@ -719,9 +719,9 @@ namespace RestaurantTableReservation
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Restaurant Table Reservation System";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
 
             this.groupBoxTableDetails.ResumeLayout(false);
             this.groupBoxTableDetails.PerformLayout();
