@@ -2,8 +2,7 @@ using System;
 
 namespace RestaurantTableReservation
 {
-    // Both Reservation and WaitlistEntry implement this, so the "seat this party" code
-    // in Form1 only needs to be written once instead of once per type.
+    // implemented by both Reservation and WaitlistEntry so we can seat either one the same way
     public interface ISeatable
     {
         string GuestName { get; }

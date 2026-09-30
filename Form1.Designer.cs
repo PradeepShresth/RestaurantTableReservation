@@ -385,7 +385,7 @@ namespace RestaurantTableReservation
             this.tabPageReservations.UseVisualStyleBackColor = true;
 
             //
-            // Reservations tab buttons (Create/Modify open ReservationForm as a dialog)
+            // buttonCreateReservation
             //
             this.buttonCreateReservation.Location = new System.Drawing.Point(15, 10);
             this.buttonCreateReservation.Name = "buttonCreateReservation";
@@ -648,9 +648,8 @@ namespace RestaurantTableReservation
 
             //
             // dataGridViewSearchResults
+            // columns get added in code depending on search type
             //
-            // Columns are not fixed at design time - they change shape depending on which
-            // "Search By" mode is selected, so they are built up in code in buttonSearch_Click.
             this.dataGridViewSearchResults.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewSearchResults.AllowUserToAddRows = false;

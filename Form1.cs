@@ -18,8 +18,7 @@ namespace RestaurantTableReservation
             InitializeComponent();
         }
 
-        // Set to true by every action that changes the data, and cleared after a
-        // successful Save or Load, so we know whether to prompt before exiting.
+        // true if data changed since the last save
         private bool hasUnsavedChanges = false;
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -78,8 +77,7 @@ namespace RestaurantTableReservation
             SaveDataWithDialog();
         }
 
-        // Returns true only if the file was actually written successfully, so
-        // Form1_FormClosing knows whether it is safe to let the form close.
+        // returns true if it actually saved
         private bool SaveDataWithDialog()
         {
             SaveFileDialog dialog = new SaveFileDialog();
@@ -126,10 +124,8 @@ namespace RestaurantTableReservation
             }
         }
 
-        // Saves everything to one CSV file. Each line starts with a word saying what kind of
-        // record it is (TABLE / RESERVATION / WAITLIST), since that is the easiest way to keep
-        // three different kinds of data in a single file that still reads back in with a plain
-        // StreamReader and Split(','), the same idea used in the Week 10 file-handling lab.
+        // saves all tables, reservations and waitlist entries into one csv file
+        // each line starts with TABLE / RESERVATION / WAITLIST so we know what it is when loading
         private void SaveDataToFile(string filePath)
         {
             using (StreamWriter writer = new StreamWriter(filePath))
@@ -173,9 +169,7 @@ namespace RestaurantTableReservation
         {
             if (!File.Exists(filePath))
             {
-                // Throw instead of showing our own message and returning here, so the
-                // caller's catch block handles it the same way as any other load failure
-                // instead of going on to say "Data loaded successfully" right afterwards.
+                // file doesn't exist, let the catch in menuLoadData_Click handle the message
                 throw new FileNotFoundException("That file does not exist.");
             }
 
@@ -192,9 +186,7 @@ namespace RestaurantTableReservation
                 {
                     string[] parts = line.Split(',');
 
-                    // Each record type is wrapped in its own try/catch, so one bad or
-                    // corrupted line in the file does not crash the whole load - it just
-                    // gets skipped and counted.
+                    // skip the line if something goes wrong instead of crashing
                     try
                     {
                         if (parts[0] == "TABLE")
@@ -241,10 +233,7 @@ namespace RestaurantTableReservation
             }
         }
 
-        // The search results grid rebuilds its columns from scratch depending on which
-        // "Search By" mode is picked, so column widths cannot be set once at design time.
-        // Guest Name and Party Size appear in both modes and should look the same size
-        // either way, so each width below is the largest that column ever needs to be.
+        // column widths for the search results grid (columns get rebuilt every search)
         private const int resultColGuestNameWidth = 180;
         private const int resultColPartySizeWidth = 90;
         private const int resultColTimeWidth = 150;
@@ -371,8 +360,7 @@ namespace RestaurantTableReservation
             }
             double averageTurnover = totalTurnover / historicalTurnoverMinutes.Count;
 
-            // Busiest hour: count reservations into one bucket per hour of the day, then
-            // scan by hand for the bucket with the most in it.
+            // count reservations per hour, then find the hour with the most
             int[] hourCounts = new int[24];
             foreach (DataGridViewRow row in dataGridViewReservations.Rows)
             {
@@ -406,9 +394,7 @@ namespace RestaurantTableReservation
             }
         }
 
-        // Real observed "how long did a table actually stay occupied" times, in minutes.
-        // Starts with a few made-up baseline numbers so the wait estimate on the Waitlist
-        // tab is not just zero before any table has actually been freed yet.
+        // how long tables have taken to free up (in minutes), starts with some made up numbers
         private List<double> historicalTurnoverMinutes = new List<double> { 82, 95, 70, 88 };
 
         private void buttonMarkTableFree_Click(object sender, EventArgs e)
@@ -462,12 +448,8 @@ namespace RestaurantTableReservation
             }
         }
 
-        // The assignment's "custom algorithm" requirement: hand-written priority matching
-        // instead of Queue<T> or a LINQ OrderBy. Every waiting party that fits the freed
-        // table gets a score - a good size fit matters a lot more than how long they have
-        // waited, so a party of 2 does not jump ahead of a perfectly-fitting party of 6 just
-        // because they arrived a bit earlier - and we just keep track of the best one seen
-        // so far as we loop through.
+        // finds the best waiting party for a table that just became free
+        // gives points for fitting the table size well, and a few extra points for waiting longer
         private DataGridViewRow FindBestWaitlistMatch(int tableCapacity)
         {
             DataGridViewRow bestRow = null;
@@ -506,9 +488,7 @@ namespace RestaurantTableReservation
             return bestRow;
         }
 
-        // Shared by both Seat Party buttons below. It does not care whether "party" is a
-        // Reservation or a WaitlistEntry - it only talks to it through ISeatable - so the
-        // actual seating logic only has to be written once instead of twice.
+        // used for seating both reservations and waitlist parties, works through ISeatable
         private bool SeatParty(ISeatable party, int tableNumber)
         {
             DataGridViewRow tableRow = null;
@@ -678,8 +658,7 @@ namespace RestaurantTableReservation
                 return;
             }
 
-            // Work out the real average turnover time from tables that have actually been
-            // marked free so far, instead of just assuming a fixed number of minutes.
+            // average turnover so far
             double totalTurnover = 0;
             foreach (double minutes in historicalTurnoverMinutes)
             {
@@ -727,7 +706,7 @@ namespace RestaurantTableReservation
 
             DataGridViewRow selectedRow = dataGridViewReservations.SelectedRows[0];
 
-            // Pre-fill the dialog with this reservation's current details.
+            // fill the form with the current values first
             ReservationForm form = new ReservationForm(dataGridViewTables, dataGridViewReservations);
             form.GuestName = selectedRow.Cells["colResGuestName"].Value.ToString();
             form.PartySize = Convert.ToInt32(selectedRow.Cells["colResPartySize"].Value);
@@ -768,8 +747,7 @@ namespace RestaurantTableReservation
 
             int minimumGapMinutes = averageDiningMinutes - overbookingBufferMinutes;
 
-            // Same overbooking check as Create Reservation, but skip the row we are
-            // editing - otherwise it would always conflict with its own old time.
+            // same overbooking check as create reservation, skip this row since its our own old time
             foreach (DataGridViewRow row in dataGridViewReservations.Rows)
             {
                 if (row.Index == selectedRow.Index)
@@ -821,18 +799,13 @@ namespace RestaurantTableReservation
             hasUnsavedChanges = true;
         }
 
-        // A booking is assumed to take about this long, and we allow bookings on the same
-        // table to be a little closer together than that (the "overbooking buffer") in case
-        // the earlier party finishes a bit early.
+        // assume a booking takes about 90 min, but allow a bit of overlap in case they leave early
         private const int averageDiningMinutes = 90;
         private const int overbookingBufferMinutes = 15;
 
         private void buttonCreateReservation_Click(object sender, EventArgs e)
         {
-            // Create Reservation opens a separate dialog form to collect the guest/party
-            // details, per the assignment's multi-form navigation requirement, instead of
-            // reading straight from text boxes on this tab. Passing the grids in lets the
-            // dialog suggest a suitable table itself as the party size is typed in.
+            // open the reservation form to get guest name, party size, time and table
             ReservationForm form = new ReservationForm(dataGridViewTables, dataGridViewReservations);
             form.RequestedTime = DateTime.Now;
 
@@ -846,7 +819,7 @@ namespace RestaurantTableReservation
             DateTime requestedTime = form.RequestedTime;
             int tableNumber = form.TableNumber;
 
-            // Find the table so we can check its capacity.
+            // find the table to check its capacity
             int tableCapacity = -1;
             foreach (DataGridViewRow row in dataGridViewTables.Rows)
             {
@@ -871,7 +844,7 @@ namespace RestaurantTableReservation
 
             int minimumGapMinutes = averageDiningMinutes - overbookingBufferMinutes;
 
-            // Check the table isn't already booked too close to this time.
+            // check the table isn't already booked too close to this time
             foreach (DataGridViewRow row in dataGridViewReservations.Rows)
             {
                 int existingTableNumber = Convert.ToInt32(row.Cells["colResTableNumber"].Value);

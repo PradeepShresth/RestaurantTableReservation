@@ -5,21 +5,17 @@ namespace RestaurantTableReservation
 {
     public partial class ReservationForm : Form
     {
-        // MainForm sets these before ShowDialog() to pre-fill the fields (used for Modify),
-        // and reads them back afterwards once the user clicks OK.
+        // used to pass values in/out of this form (Form1 sets these before ShowDialog for modify)
         public string GuestName { get; set; }
         public int PartySize { get; set; }
         public DateTime RequestedTime { get; set; }
         public int TableNumber { get; set; }
 
-        // Passed in from MainForm so this dialog can look up tables/existing bookings itself
-        // and suggest one, instead of the user having to know table numbers off by heart.
+        // grids passed in from Form1 so we can look up tables and existing bookings
         private DataGridView tablesGrid;
         private DataGridView reservationsGrid;
 
-        // True only while ReservationForm_Load is filling in the fields for Modify, so the
-        // auto-suggest logic below does not immediately overwrite the table that was already
-        // assigned to an existing reservation.
+        // stops the auto suggest from overwriting the table number while we are still loading
         private bool isLoadingFields = false;
 
         public ReservationForm(DataGridView tablesGrid, DataGridView reservationsGrid)
@@ -61,10 +57,8 @@ namespace RestaurantTableReservation
             SuggestTableNumber();
         }
 
-        // Fills in Table Number automatically once a valid party size has been typed in,
-        // picking the smallest free table that both fits the party and is not already
-        // booked too close to the requested time. The user can still type over it by hand -
-        // this is a suggestion, not a lock.
+        // picks the smallest free table that fits the party and isn't booked too close in time
+        // just fills the text box, user can still change it
         private void SuggestTableNumber()
         {
             if (isLoadingFields || tablesGrid == null)
@@ -78,9 +72,7 @@ namespace RestaurantTableReservation
                 return;
             }
 
-            // Same idea as Form1's overbooking check: two bookings on the same table need to
-            // be at least 75 minutes apart (90 minute average dining time, minus a 15 minute
-            // overbooking buffer).
+            // same rule as Form1, bookings need to be at least 75 min apart (90 min minus 15 min buffer)
             const int averageDiningMinutes = 90;
             const int overbookingBufferMinutes = 15;
             int minimumGapMinutes = averageDiningMinutes - overbookingBufferMinutes;
@@ -123,8 +115,7 @@ namespace RestaurantTableReservation
                     continue;
                 }
 
-                // Keep the smallest-capacity table seen so far that still fits, so a party
-                // of two does not get suggested an eight-seat table.
+                // keep the smallest table that still fits so far
                 if (bestCapacity == -1 || capacity < bestCapacity)
                 {
                     bestCapacity = capacity;
